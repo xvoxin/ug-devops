@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+    my-redis-server:
+        image: 'redis'
+    my-webapp:
+        build: .
+        ports:
+            - "9090:8080"
