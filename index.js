@@ -9,25 +9,18 @@ const client = redis.createClient({
     port: 6379
 });
 
-client.set('nwd', 'n/a');
-
 app.get('/', (req, res) => {
-    client.get('counter', (err, counterValue) => {
-        var currentValue = parseInt(counterValue) + 1;
-        client.set('counter', currentValue);
-        res.send("Hello " + currentValue + " time!");
-    })
+    res.send("Howdy stranger!");
 });
 
 app.get('/nwd/:l1&:l2', (req, res) => {
-    var result = NWD(req.params.l1, req.params.l2)
-    res.send("Nwd " + result);
-    client.set('nwd', result);
-});
-
-app.get('/nwd', (req, res) => {
     client.get('nwd', (err, nwd) => {
-        res.send("Cached nwd " + nwd);
+        if (!nwd) {
+            var result = NWD(req.params.l1, req.params.l2)
+            res.send("NWD: " + result);
+            client.set('nwd', result);
+        }
+        res.send("Cached NWD " + nwd);
     })
 });
 
