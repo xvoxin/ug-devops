@@ -7,3 +7,4 @@ services:
         build: .
         ports:
             - "9090:8080"
+        restart: on-failure

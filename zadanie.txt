@@ -1,0 +1,7 @@
+Wielo (dwu) kontenerowa apka:
+- redis (cache)
+- node (backend)
+
+Backend:
+- Liczy NwD(l1, l2) - i wyliczone do tej  pory wartosci przechowuje w cache
+- Jesli nie ma to wylicza NwD dla zadanych liczb
