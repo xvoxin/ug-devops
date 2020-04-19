@@ -5,3 +5,13 @@ Wielo (dwu) kontenerowa apka:
 Backend:
 - Liczy NwD(l1, l2) - i wyliczone do tej  pory wartosci przechowuje w cache
 - Jesli nie ma to wylicza NwD dla zadanych liczb
+
+======
+
+DEVELOPMENT aplikacji (lokalnie, przy użyciu docker)
+
+TEST aplikacji (lokalnie, przy użyciu docker) -> TRAVIS CI (pipeline)
+
+DEPLOYMENT/PROD BUILD
+
+REACTJS / ANGULAR / VUE
