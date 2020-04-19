@@ -7,4 +7,4 @@ before_install:
     - docker build -t xvoxin/docker-front -f frontend/Dockerfile.dev frontend/.
     
 script:
-    - docker run -e CI=true xvoxin/docker-front
+    - docker run -e CI=true xvoxin/docker-front yarn test
