@@ -20,10 +20,11 @@ const pgClient = new Pool({
     database: keys.pgDatabase
 });
 
-pgClient.on('error', () => console.log('Cannot connect to postgres database'));
-
-pgClient.query('CREATE TABLE IF NOT EXIST values(number INT)')
-    .catch(err => console.log(err));
+setTimeout(() => {
+    pgClient
+        .query('CREATE TABLE IF NOT EXISTS exchange(nok NUMERIC, pln NUMERIC)')
+        .catch(err => console.log(err));
+}, 3000);
 
 const redis = require('redis');
 const redisClient = redis.createClient({
@@ -36,7 +37,50 @@ app.get('/', (req, res) => {
     res.send("Howdy stranger!");
 });
 
+app.get('/exchange/:nok', (req, res) => {
+    const nokKey = req.params.nok
+    const nok = parseFloat(nokKey)
+
+    var result = 0
+
+    redisClient.get(nokKey, (err, calculatedPln) => {
+        if (!calculatedPln) {
+            result = calculatePln(nok);
+            saveResultInDb(nok, result);
+            redisClient.set(nokKey, result.toString());
+        } else {
+            result = calculatedPln;
+        }
+
+        res.send(result.toString());
+    });
+});
+
+app.get('/history', (req, res) => {
+    pgClient.query('SELECT * FROM exchange;', (err, result) => {
+        if (result.rows) {
+            res.send(result.rows);
+        } else {
+            res.send([]);
+        }
+    });
+});
+
+const nokExchangeRate = 0.41;
+
+function calculatePln(nok) {
+    return (nok * nokExchangeRate).toFixed(2);
+}
+
+function saveResultInDb(nok, result) {
+    pgClient
+        .query(`INSERT INTO exchange (nok, pln) VALUES (${nok}, ${result})`)
+        .catch(pgError => console.log(pgError));
+}
+
 const appPort = 5000;
+
+
 app.listen(appPort, err => {
     console.log(`Backend app listening on port ${appPort}`);
 })

@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-    my-postres:
+    my-postgres:
         image: 'postgres:latest'
         environment:
         - POSTGRES_PASSWORD=${PGPASSWORD}
