@@ -1,0 +1,12 @@
+apiVersion: v1
+
+kind: ConfigMap
+
+metadata: 
+    name: myapp-config
+    
+data: 
+    PGUSER: "postgres"
+    PGPORT: "5432"
+    REDISPORT: "6379"
+    

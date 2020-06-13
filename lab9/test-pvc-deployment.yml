@@ -1,0 +1,22 @@
+apiVersion: v1
+
+kind: Pod
+
+metadata:
+    name: test-pvc-pod
+    
+spec:
+    containers: 
+      - image: alpine
+        name: alpine
+        command: ["bin/sh/", "-c"]
+        args: ["echo Hello > /opt/data/hello.txt"]
+        
+        volumeMounts: 
+          - mountPath: /opt
+            name: data-volume
+            
+    volumes: 
+      - name: data-volume
+        persistentVolumeClaim:
+            claimName: postgres-pvc

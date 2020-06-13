@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: my-backend-deployment
+  labels:
+    app: my-backend
+    type: backend
+
+spec:
+  template:
+    metadata:
+      name: mybackend-pod
+      labels:
+        app: my-backend
+        type: backend
+    spec:
+      containers:
+        - name: my-backend-container
+          image: xvoxin/kube-backend
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: PGPASSWORD
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: myapp-config
+                  key: PGUSER
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-backend
+      type: backend
