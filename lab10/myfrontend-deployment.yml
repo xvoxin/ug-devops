@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: my-frontend-deployment
+  labels:
+    app: my-frontend
+    type: frontend
+
+spec:
+  template:
+    metadata:
+      name: myfrontend-pod
+      labels:
+        app: my-frontend
+        type: frontend
+    spec:
+      containers:
+        - name: my-frontend-container
+          image: xvoxin/kube-frontend
+          envFrom:
+            - configMapRef:
+                name: myapp-config
+
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-frontend
+      type: frontend

@@ -1,0 +1,49 @@
+Docker info 
+Docker run [nazwa obrazu]
+Docker ps : uruchomione kontenery
+Docker ps -a : uruchomione i ich stan 
+Docker prune : usuwa
+Docker exec -it {id} cmd | np docker exec -it 2urasjkh233 sh 
+
+Zadanie - poznać VI
+
+Docker start
+Docker stop(-a)
+Docker -p inPort:outPort [nazwa]
+Docker image ls : lista obrazów
+Docker-compose up --build
+Docker-compose down
+
+Docker build . // buduje w bieżącym katalogu
+
+Docker build -f Dockerfile . // budowa, kiedy jest więcej niż jeden
+
+==
+
+Docker network create demoapp
+
+Docker network ls
+
+
+//run postgres
+docker run --rm --name my-postgres -e POSTGRES_PASSWORD=somepassword --network demoapp postgres
+
+//run redis
+docker run --rm --name my-redis --network demoapp redis
+
+// run environment
+docker run --rm --env REDIS_HOST=my-redis --rm --name my-backend --network demoapp -v /app/webapp/node_modules -v $(pwd):/app/webapp -e PGHOST=my-postgres -e PGUSER=postgres -e PGDATABASE=postgres -e PGPASSWORD=somepassword -e PGPORT=5432 -p 9090:8080 id
+
+yarn add express body-parser redis pg cors nodemon
+
+//wejscie do postgres
+docker exec -it [idpostgres] sh
+psql -U postgres
+
+//stop all
+docker stop $(docker ps -a -q)
+
+//drop all
+docker rm $(docker ps -a -q)
+
+michalniskowski$ docker build -t xvoxin/kube-backend .

@@ -1,0 +1,32 @@
+Kubectl config current-context
+Kubectl get pods
+Kubectl get pods --namespace=kube-system
+Kubectl create -f pod-template.yml // tworzenie z pliku
+Kubectl describe pod [nazwa] // np myapp-poy
+Kubectl delete pod [nazwa]
+Kubectl delete rs [nazwa] //replica
+Kubectl scale --replicas=5 replicaset myapp-rs
+Kubectl delete deployment [nazwa]
+Kubectl get svc
+Kubectl log [nazwa]
+kubectl exec -ti dnsutils -- nslookup [nazwa-service]
+
+
+kubectl cluster-info 
+kubectl create -f nginx-deployment.yml 
+kubectl get deployment 
+kubectl get deploy 
+kubectl get replicaset 
+kubectl get rs 
+kubectl describe deploy my-nginx-deployment 
+kubectl get pods 
+kubectl describe pod my-nginx-deployment-7689db8f-6zq24 
+kubectl create -f myapp-service-nodeport.yml 
+kubectl describe service my-app-service 
+kubectl delete svc mybackend-service 
+kubectl delete deploy 
+kubectl exec -ti dnsutils -- nslookup redis-service
+
+
+Kubectl apply -f pvc.yml 
+screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty
